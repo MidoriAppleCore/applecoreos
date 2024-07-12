@@ -20,7 +20,7 @@ env:
   IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
   IMAGE_TAG: "latest"
   VERSION: "40" 
-  VARIANT: ""
+  VARIANT: "base"
   SOURCE_IMAGE: "base"
   SOURCE_SUFFIX: "-asus-nvidia"
   SOURCE_TAG: "latest"
