@@ -13,7 +13,15 @@ RELEASE="$(rpm -E %fedora)"
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-rpm-ostree install screen
+rpm-ostree install tmux
+rpm-ostree install podman
+rpm-ostree install podman-compose
+rpm-ostree install git
+rpm-ostree install neovim
+rpm-ostree install lxde-common
+rpm-ostree install lightdm
+rpm-ostree install nmcli
+rpm-ostree install conman
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -21,3 +29,8 @@ rpm-ostree install screen
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+systemctl enable lightdm
+
+# enable conman autostart
+echo '@wicd-gtk' >> ~/.config/lxsession/LXDE/autostart
+
