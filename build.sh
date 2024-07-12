@@ -30,6 +30,4 @@ rpm-ostree install conman
 systemctl enable podman.socket
 systemctl enable lightdm
 
-# enable conman autostart
-echo '@wicd-gtk' >> ~/.config/lxsession/LXDE/autostart
 
