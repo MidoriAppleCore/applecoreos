@@ -14,11 +14,11 @@ on:
   workflow_dispatch:
 
 env:
-  MY_IMAGE_NAME: "${{ github.event.repository.name }}"  # the name of the image produced by this build, matches repo names
+  MY_IMAGE_NAME: "${{ github.event.repository.name | toLower }}"  # Ensure lowercase
   MY_IMAGE_DESC: "My Customized Universal Blue Image"
-  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
+  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner | toLower }}"  # Ensure lowercase
   ARCH: "x86_64"
-  IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
+  IMAGE_REPO: "ghcr.io/${{ github.repository_owner | toLower }}/${{ github.event.repository.name | toLower }}"
   IMAGE_TAG: "latest"
   VERSION: "40" 
   VARIANT: "base"
