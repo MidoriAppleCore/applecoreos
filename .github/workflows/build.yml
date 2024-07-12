@@ -19,9 +19,9 @@ env:
   ARCH: "x86_64"
   IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
   IMAGE_TAG: "latest"
-  VERSION: "master"  # Correct branch name
-  VARIANT: "fedora"
-  SOURCE_IMAGE: "base"
+  VERSION: "40" 
+  VARIANT: ""
+  SOURCE_IMAGE: "ghcr.io/ublue-os/base-main"
   SOURCE_SUFFIX: "-asus-nvidia"
   SOURCE_TAG: "latest"
 
