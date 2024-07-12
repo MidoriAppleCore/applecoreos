@@ -1,4 +1,4 @@
----
+
 name: build-ublue-custom
 on:
   pull_request:
@@ -17,6 +17,14 @@ env:
   MY_IMAGE_NAME: "${{ github.event.repository.name }}"  # the name of the image produced by this build, matches repo names
   MY_IMAGE_DESC: "My Customized Universal Blue Image"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
+  ARCH: "x86_64"
+  IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
+  IMAGE_TAG: "latest"
+  VERSION: "1.0.0"
+  VARIANT: "fedora"
+  SOURCE_IMAGE: "base"
+  SOURCE_SUFFIX: "-asus-nvidia"
+  SOURCE_TAG: "latest"
 
 jobs:
   build_push:
@@ -96,6 +104,10 @@ jobs:
         with:
           containerfiles: |
             ./Containerfile
+          build-args: |
+            SOURCE_IMAGE=${{ env.SOURCE_IMAGE }}
+            SOURCE_SUFFIX=${{ env.SOURCE_SUFFIX }}
+            SOURCE_TAG=${{ env.SOURCE_TAG }}
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
           image: ${{ env.MY_IMAGE_NAME }}
@@ -151,3 +163,29 @@ jobs:
           TAGS: ${{ steps.push.outputs.digest }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      # Build ISO
+      - name: Build ISO
+        uses: jasonn3/build-container-installer@main
+        id: build
+        with:
+          arch: ${{ env.ARCH}}
+          image_name: ${{ env.MY_IMAGE_NAME}}
+          image_repo: ${{ env.IMAGE_REPO}}
+          image_tag: ${{ env.IMAGE_TAG }}
+          version: ${{ env.VERSION }}
+          variant: ${{ env.VARIANT }}
+          iso_name: ${{ env.MY_IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ env.VERSION }}.iso
+
+      # Upload ISO as artifact
+      - name: Upload ISO as artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.build.outputs.iso_name }}
+          path: |
+            ${{ steps.build.outputs.iso_path }}
+            ${{ steps.build.outputs.iso_path }}-CHECKSUM
+          if-no-files-found: error
+          retention-days: 0
+          compression-level: 0
