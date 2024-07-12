@@ -20,7 +20,7 @@ env:
   ARCH: "x86_64"
   IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
   IMAGE_TAG: "latest"
-  VERSION: "1.0.0"
+  VERSION: "latest"
   VARIANT: "fedora"
   SOURCE_IMAGE: "base"
   SOURCE_SUFFIX: "-asus-nvidia"
@@ -37,8 +37,7 @@ jobs:
       id-token: write
 
     steps:
-      # Checkout push-to-registry action GitHub repository
-      - name: Checkout Push to Registry action
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Maximize build space
@@ -48,56 +47,35 @@ jobs:
         id: generate-tags
         shell: bash
         run: |
-          # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
           COMMIT_TAGS=()
           BUILD_TAGS=()
-
-          # Have tags for tracking builds during pull request
           SHA_SHORT="${GITHUB_SHA::7}"
           COMMIT_TAGS+=("pr-${{ github.event.number }}")
           COMMIT_TAGS+=("${SHA_SHORT}")
-
-          # Append matching timestamp tags to keep a version history
           for TAG in "${BUILD_TAGS[@]}"; do
               BUILD_TAGS+=("${TAG}-${TIMESTAMP}")
           done
-
           BUILD_TAGS+=("${TIMESTAMP}")
           BUILD_TAGS+=("latest")
-
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              echo "Generated the following commit tags: "
-              for TAG in "${COMMIT_TAGS[@]}"; do
-                  echo "${TAG}"
-              done
-
               alias_tags=("${COMMIT_TAGS[@]}")
           else
               alias_tags=("${BUILD_TAGS[@]}")
           fi
-
-          echo "Generated the following build tags: "
-          for TAG in "${BUILD_TAGS[@]}"; do
-              echo "${TAG}"
-          done
-
           echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
 
-      # Build metadata
       - name: Image Metadata
         uses: docker/metadata-action@v5
         id: meta
         with:
           images: |
             ${{ env.MY_IMAGE_NAME }}
-
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository }}/main/README.md
             org.opencontainers.image.description=${{ env.MY_IMAGE_DESC }}
             org.opencontainers.image.title=${{ env.MY_IMAGE_NAME }}
 
-      # Build image using Buildah action
       - name: Build Image
         id: build_image
         uses: redhat-actions/buildah-build@v2
@@ -108,16 +86,12 @@ jobs:
             SOURCE_IMAGE=${{ env.SOURCE_IMAGE }}
             SOURCE_SUFFIX=${{ env.SOURCE_SUFFIX }}
             SOURCE_TAG=${{ env.SOURCE_TAG }}
-          # Postfix image name with -custom to make it a little more descriptive
-          # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
           image: ${{ env.MY_IMAGE_NAME }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 
-      # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
-      # https://github.com/macbre/push-to-ghcr/issues/12
       - name: Lowercase Registry
         id: registry_case
         uses: ASzc/change-string-case-action@v6
@@ -146,12 +120,6 @@ jobs:
           extra-args: |
             --disable-content-trust
 
-      # This section is optional and only needs to be enabled in you plan on distributing
-      # your project to others to consume. You will need to create a public and private key
-      # using Cosign and save the private key as a repository secret in Github for this workflow
-      # to consume. For more details, review the image signing section of the README.
-
-      # Sign container
       - uses: sigstore/cosign-installer@v3.5.0
         if: github.event_name != 'pull_request'
 
@@ -164,20 +132,18 @@ jobs:
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
-      # Build ISO
       - name: Build ISO
         uses: jasonn3/build-container-installer@main
         id: build
         with:
-          arch: ${{ env.ARCH}}
-          image_name: ${{ env.MY_IMAGE_NAME}}
-          image_repo: ${{ env.IMAGE_REPO}}
+          arch: ${{ env.ARCH }}
+          image_name: ${{ env.MY_IMAGE_NAME }}
+          image_repo: ${{ env.IMAGE_REPO }}
           image_tag: ${{ env.IMAGE_TAG }}
           version: ${{ env.VERSION }}
           variant: ${{ env.VARIANT }}
           iso_name: ${{ env.MY_IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ env.VERSION }}.iso
 
-      # Upload ISO as artifact
       - name: Upload ISO as artifact
         id: upload
         uses: actions/upload-artifact@v4
