@@ -21,7 +21,7 @@ env:
   IMAGE_TAG: "latest"
   VERSION: "40" 
   VARIANT: ""
-  SOURCE_IMAGE: "ghcr.io/ublue-os/base-main"
+  SOURCE_IMAGE: "ghcr.io/ublue-os/base"
   SOURCE_SUFFIX: "-asus-nvidia"
   SOURCE_TAG: "latest"
 
