@@ -1,4 +1,3 @@
-
 name: build-ublue-custom
 on:
   pull_request:
@@ -20,7 +19,7 @@ env:
   ARCH: "x86_64"
   IMAGE_REPO: "ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
   IMAGE_TAG: "latest"
-  VERSION: "master"  # Changed to 'master' as the correct branch
+  VERSION: "master"  # Correct branch name
   VARIANT: "fedora"
   SOURCE_IMAGE: "base"
   SOURCE_SUFFIX: "-asus-nvidia"
