@@ -20,7 +20,6 @@ rpm-ostree install git
 rpm-ostree install neovim
 rpm-ostree install lxde-common
 rpm-ostree install lightdm
-rpm-ostree install nmcli
 rpm-ostree install conman
 
 # this would install a package from rpmfusion
