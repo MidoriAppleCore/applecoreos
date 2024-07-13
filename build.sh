@@ -9,6 +9,7 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install -y tmux podman podman-compose docker curl wget git neovim \
                lxde-common lxterminal lightdm conman virt-manager distrobox \
                flatpak
+
 rpm-ostree override remove firefox firefox-langpacks
 
 # Enable necessary services
@@ -21,11 +22,6 @@ useradd -m -G wheel,docker -s /bin/bash midori
 passwd -d midori
 groupadd -f podman
 usermod -aG podman midori
-
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# Start a D-Bus session for the user midori
-sudo -u midori dbus-launch --exit-with-session flatpak install -y flathub org.mozilla.firefox
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
@@ -42,6 +38,16 @@ EOF
 cat <<EOF > /etc/xdg/lxsession/LXDE/autostart
 @lxpanel --profile LXDE
 @pcmanfm --desktop --profile LXDE
+EOF
+
+### Configure autostart for Firefox installation
+mkdir -p /etc/skel/.config/autostart
+cat <<EOF > /etc/skel/.config/autostart/install_firefox.desktop
+[Desktop Entry]
+Type=Application
+Name=Install Firefox
+Exec=lxterminal -e /etc/install_firefox.sh
+X-GNOME-Autostart-enabled=true
 EOF
 
 ### Cleanup
