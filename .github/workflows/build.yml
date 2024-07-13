@@ -137,7 +137,7 @@ jobs:
         with:
           arch: ${{ env.ARCH }}
           image_name: ${{ env.REPO_NAME }}
-          image_repo: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
+          image_repo: ghcr.io/${{ env.REPO_OWNER }}
           image_tag: ${{ env.IMAGE_TAG }}
           version: ${{ env.VERSION }}
           variant: ${{ env.VARIANT }}
