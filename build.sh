@@ -15,7 +15,7 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install -y tmux podman podman-compose docker curl wget git neovim \
                lxde-common lxterminal lightdm conman virt-manager distrobox \
                flatpak
-rpm-ostree override firefox-langpacks remove -y firefox
+rpm-ostree override remove firefox firefox-langpacks
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Install Firefox via Flatpak
