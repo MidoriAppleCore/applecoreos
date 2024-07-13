@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 set -ouex pipefail
@@ -22,7 +23,9 @@ groupadd -f podman
 usermod -aG podman midori
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo -u midori flatpak install -y flathub org.mozilla.firefox
+
+# Start a D-Bus session for the user midori
+sudo -u midori dbus-launch --exit-with-session flatpak install -y flathub org.mozilla.firefox
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
