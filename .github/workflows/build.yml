@@ -104,16 +104,12 @@ jobs:
 
       - name: Push Image to GHCR
         uses: redhat-actions/push-to-registry@v2
-        id: push
         env:
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
           image: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
           tags: ${{ steps.build_image.outputs.tags }}
-          registry: ghcr.io/${{ env.REPO_OWNER }}
-          extra-args: |
-            --disable-content-trust
 
       - name: List images in ghcr.io
         run: |
@@ -127,9 +123,9 @@ jobs:
       - name: Sign container image
         if: github.event_name != 'pull_request'
         run: |
-          cosign sign -y --key env://COSIGN_PRIVATE_KEY ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}@${TAGS}
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:${{ env.IMAGE_TAG }}
         env:
-          TAGS: ${{ steps.push.outputs.digest }}
+          TAGS: ${{ steps.build_image.outputs.tags }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
