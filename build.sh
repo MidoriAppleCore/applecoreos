@@ -29,6 +29,17 @@ wallpaper_common=1
 wallpaper=/usr/share/backgrounds/default_wallpaper.jpg
 EOF
 
+### Copy the kickstart file
+mkdir -p /iso
+cp /tmp/kickstart.ks /iso/
+
+### Modify the bootloader configuration to use the kickstart file
+# Assuming using isolinux/syslinux
+#sed -i 's/append initrd=initrd.img/append initrd=initrd.img ks=cdrom:\/kickstart.ks/' /iso/isolinux/isolinux.cfg
+
+#If using GRUB
+sed -i 's/linuxefi \/vmlinuz.*/& ks=cdrom:\/kickstart.ks/' /iso/EFI/BOOT/grub.cfg
+
 ### Cleanup
 
 # Remove unnecessary packages
@@ -37,13 +48,3 @@ rpm-ostree cleanup -m
 # Remove temporary files and caches
 rm -rf /var/cache/dnf /var/lib/dnf /tmp/* /var/tmp/*
 
-### Copy the kickstart file
-mkdir -p /iso
-cp /tmp/kickstart.ks /iso/
-
-### Modify the bootloader configuration to use the kickstart file
-# Assuming using isolinux/syslinux
-sed -i 's/append initrd=initrd.img/append initrd=initrd.img ks=cdrom:\/kickstart.ks/' /iso/isolinux/isolinux.cfg
-
-# If using GRUB
-# sed -i 's/linuxefi \/vmlinuz.*/& ks=cdrom:\/kickstart.ks/' /iso/EFI/BOOT/grub.cfg
