@@ -1,10 +1,11 @@
+
 name: build-ublue-custom
 on:
   pull_request:
     branches:
       - main
   schedule:
-    - cron: '05 10 * * *'  # 10:05am UTC everyday
+    - cron: '05 10 * * *'  # 10:05am UTC every day
   push:
     branches:
       - main
@@ -88,7 +89,7 @@ jobs:
             SOURCE_IMAGE=${{ env.SOURCE_IMAGE }}
             SOURCE_SUFFIX=${{ env.SOURCE_SUFFIX }}
             SOURCE_TAG=${{ env.SOURCE_TAG }}
-          image: ${{ env.REPO_NAME }}
+          image: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -106,13 +107,11 @@ jobs:
         id: push
         env:
           REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ github.token }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
-          image: ${{ env.REPO_NAME }}
+          image: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
           tags: ${{ steps.build_image.outputs.tags }}
           registry: ghcr.io/${{ env.REPO_OWNER }}
-          username: ${{ env.REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASSWORD }}
           extra-args: |
             --disable-content-trust
 
