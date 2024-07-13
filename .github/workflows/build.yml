@@ -108,7 +108,7 @@ jobs:
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
-          image: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
+          image: ${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}
           tags: ${{ steps.build_image.outputs.tags }}
 
       - name: List images in ghcr.io
