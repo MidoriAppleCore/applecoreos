@@ -22,6 +22,7 @@ systemctl enable flatpak-system-helper
 ### Add user 'midori' with no password and add to necessary groups
 useradd -m -G wheel,docker -s /bin/bash midori
 passwd -d midori
+groupadd -f podman
 usermod -aG podman midori
 
 ### Set LXDE default configurations
