@@ -12,37 +12,16 @@ RELEASE="$(rpm -E %fedora)"
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
-rpm-ostree install tmux
-rpm-ostree install podman
-rpm-ostree install podman-compose
-rpm-ostree install docker
-rpm-ostree install curl wget
-rpm-ostree install git
-rpm-ostree install neovim
-rpm-ostree install lxde-common
-rpm-ostree install lxterminal
-rpm-ostree install lightdm
-rpm-ostree install conman
-rpm-ostree install virt-manager
-rpm-ostree install distrobox
-rpm-ostree remove firefox*
+dnf install -y tmux podman podman-compose docker curl wget git neovim \
+               lxde-common lxterminal lightdm conman virt-manager distrobox \
+               flatpak
+dnf remove -y firefox
 
-# this would install a package from rpmfusion
-# rpm-ostree install vlc
-
-#### Example for enabling a System Unit File
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 systemctl enable podman.socket
 systemctl enable lightdm
-
-### Enable Flatpak and install applications via Flatpak
-
-# Enable Flatpak support
-rpm-ostree install flatpak
-
-# Add the Flathub repository
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+systemctl enable flatpak-system-helper
 
 # Install Firefox via Flatpak
 flatpak install -y flathub org.mozilla.firefox
