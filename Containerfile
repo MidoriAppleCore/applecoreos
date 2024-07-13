@@ -1,3 +1,4 @@
+
 ## 1. BUILD ARGS
 # These allow changing the produced image by passing different build args to adjust
 # the source from which your image is built.
@@ -49,6 +50,7 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY build.sh /tmp/build.sh
+COPY wallpaper.jpg /tmp/wallpaper.jpg
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
