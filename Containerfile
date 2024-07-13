@@ -11,4 +11,4 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 COPY build.sh /tmp/build.sh
 COPY wallpaper.jpg /tmp/wallpaper.jpg
 
-RUN chmod +x /tmp/build.sh /usr/local/bin/firstboot.sh && /tmp/build.sh
+RUN chmod +x /tmp/build.sh && /tmp/build.sh
