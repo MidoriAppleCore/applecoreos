@@ -7,7 +7,7 @@ RELEASE="$(rpm -E %fedora)"
 
 ### Install packages
 rpm-ostree install -y tmux podman podman-compose curl wget git neovim \
-               lxde-common alacritty lightdm NetworkManager virt-manager distrobox \
+               lxde-common alacritty NetworkManager virt-manager distrobox \
                flatpak xorg-x11-xdm obconf xarchiver feh mpv htop xpdf xclip \
 
 
