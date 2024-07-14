@@ -10,6 +10,5 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## 3. MODIFICATIONS
 COPY build.sh /tmp/build.sh
 COPY wallpaper.jpg /tmp/wallpaper.jpg
-COPY kickstart.ks /tmp/kickstart.ks
 
 RUN chmod +x /tmp/build.sh && /tmp/build.sh

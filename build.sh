@@ -10,12 +10,14 @@ rpm-ostree install -y tmux podman podman-compose docker curl wget git neovim \
                lxde-common lxterminal lightdm conman virt-manager distrobox \
                flatpak
 
+#remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
 rpm-ostree override remove firefox firefox-langpacks
 
 # Enable necessary services
 systemctl enable podman.socket
 systemctl enable lightdm
 systemctl enable flatpak-system-helper
+systemctl enable --user flatpak-update.timer
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
@@ -29,17 +31,6 @@ wallpaper_common=1
 wallpaper=/usr/share/backgrounds/default_wallpaper.jpg
 EOF
 
-### Copy the kickstart file
-mkdir -p /iso
-cp /tmp/kickstart.ks /iso/
-
-### Modify the bootloader configuration to use the kickstart file
-# Assuming using isolinux/syslinux
-#sed -i 's/append initrd=initrd.img/append initrd=initrd.img ks=cdrom:\/kickstart.ks/' /iso/isolinux/isolinux.cfg
-
-#If using GRUB
-sed -i 's/linuxefi \/vmlinuz.*/& ks=cdrom:\/kickstart.ks/' /iso/EFI/BOOT/grub.cfg
-
 ### Cleanup
 
 # Remove unnecessary packages
@@ -47,4 +38,3 @@ rpm-ostree cleanup -m
 
 # Remove temporary files and caches
 rm -rf /var/cache/dnf /var/lib/dnf /tmp/* /var/tmp/*
-
