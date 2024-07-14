@@ -8,7 +8,7 @@ RELEASE="$(rpm -E %fedora)"
 ### Install packages
 rpm-ostree install -y tmux podman podman-compose curl wget git neovim \
                lxde-common lxterminal NetworkManager virt-manager distrobox \
-               flatpak obconf xarchiver feh htop xpdf xclip w3m\
+               flatpak obconf xarchiver feh htop xpdf xclip w3m\ lightdm \
                lxinput lxrandr lxsession-edit lxsession lxappearance 
 
 
@@ -18,6 +18,7 @@ rpm-ostree override remove firefox firefox-langpacks
 # Enable necessary services
 systemctl enable podman.socket
 systemctl enable flatpak-system-helper
+systemctl enable lightdm
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
