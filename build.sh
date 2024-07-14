@@ -7,8 +7,10 @@ RELEASE="$(rpm -E %fedora)"
 
 ### Install packages
 rpm-ostree install -y tmux podman podman-compose curl wget git neovim \
-               lxde-common alacritty NetworkManager virt-manager distrobox \
-               flatpak xorg-x11-xdm obconf xarchiver feh mpv htop xpdf xclip \
+               lxde-common lxterminal NetworkManager virt-manager distrobox \
+               flatpak obconf xarchiver feh htop xpdf xclip \
+               w3m xorg-x11-server-utils xorg-x11-xinit xorg-x11-server-Xorg \
+               lxinput lxrandr lxsession-edit lxsession lxappearance \ 
 
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
