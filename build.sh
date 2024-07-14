@@ -17,7 +17,6 @@ rpm-ostree override remove firefox firefox-langpacks
 systemctl enable podman.socket
 systemctl enable lightdm
 systemctl enable flatpak-system-helper
-systemctl enable --user flatpak-update.timer
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
