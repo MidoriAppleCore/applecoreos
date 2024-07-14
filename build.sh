@@ -17,7 +17,6 @@ rpm-ostree override remove firefox firefox-langpacks
 
 # Enable necessary services
 systemctl enable podman.socket
-systemctl enable xdm
 systemctl enable flatpak-system-helper
 
 ### Set LXDE default configurations
