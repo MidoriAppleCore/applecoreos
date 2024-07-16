@@ -6,10 +6,14 @@ set -ouex pipefail
 RELEASE="$(rpm -E %fedora)"
 
 ### Install packages
-rpm-ostree install -y tmux podman podman-compose curl wget git neovim leafpad \
-               lxde-common lxterminal NetworkManager virt-manager distrobox \
-               flatpak obconf xarchiver gpicview htop xpdf xclip w3m lightdm \
-               lxinput lxrandr lxsession-edit lxsession lxappearance \
+#rpm-ostree install -y tmux podman podman-compose curl wget git neovim leafpad \
+#               lxde-common lxterminal NetworkManager virt-manager distrobox \
+#               flatpak obconf xarchiver gpicview htop xpdf xclip w3m lightdm \
+#               lxinput lxrandr lxsession-edit lxsession lxappearance \
+#               pop-icon-theme sshfs
+rpm-ostree install -y tmux podman podman-compose curl wget git vim-minimal \
+               virt-manager distrobox \
+               flatpak htop w3m gdm \
                pop-icon-theme sshfs
 
 
@@ -19,7 +23,7 @@ rpm-ostree override remove firefox firefox-langpacks
 # Enable necessary services
 systemctl enable podman.socket
 systemctl enable flatpak-system-helper
-systemctl enable lightdm
+systemctl enable gdm
 
 ### Set LXDE default configurations
 mkdir -p /usr/share/backgrounds
