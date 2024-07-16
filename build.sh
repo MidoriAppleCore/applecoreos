@@ -14,7 +14,9 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install -y tmux podman podman-compose curl wget git vim-minimal \
                virt-manager distrobox \
                flatpak htop w3m gdm \
-               pop-icon-theme sshfs
+               pop-icon-theme sshfs \
+               gnome-shell gnome-terminal \
+
 
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
@@ -31,4 +33,5 @@ systemctl enable gdm
 rpm-ostree cleanup -m
 
 # Remove temporary files and caches
-rm -rf /var/cache/dnf /var/lib/dnf /tmp/* /var/tmp/*
+rm -rf /var/cache/dnf /var/lib/dnf /tmp/* /var/tmp/*:w
+
