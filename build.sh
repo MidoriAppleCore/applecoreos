@@ -31,7 +31,7 @@ cp /tmp/wallpaper.jpg /usr/share/backgrounds/default_wallpaper.jpg
 # Modify the LightDM GTK greeter configuration to use the new wallpaper
 
 #figure out if we have to do this later!
-RUN mkdir -p /etc/lightdm && touch /etc/lightdm/lightdm-gtk-greeter.conf && sed -i 's|^background=.*|background=/usr/share/backgrounds/default_wallpaper.jpg|' /etc/lightdm/lightdm-gtk-greeter.conf || echo 'background=/usr/share/backgrounds/default_wallpaper.jpg' >> /etc/lightdm/lightdm-gtk-greeter.conf
+#RUN mkdir -p /etc/lightdm && touch /etc/lightdm/lightdm-gtk-greeter.conf && sed -i 's|^background=.*|background=/usr/share/backgrounds/default_wallpaper.jpg|' /etc/lightdm/lightdm-gtk-greeter.conf || echo 'background=/usr/share/backgrounds/default_wallpaper.jpg' >> /etc/lightdm/lightdm-gtk-greeter.conf
 
 mkdir -p /etc/xdg/lxsession/LXDE
 cat <<EOF > /etc/xdg/pcmanfm/LXDE/pcmanfm.conf
