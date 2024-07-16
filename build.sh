@@ -16,7 +16,7 @@ rpm-ostree install -y tmux podman podman-compose curl wget git vim-minimal \
                htop w3m \
                sshfs \
                lightdm \
-               labwc \ 
+               labwc 
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
 rpm-ostree override remove firefox firefox-langpacks
