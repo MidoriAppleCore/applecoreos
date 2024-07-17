@@ -15,7 +15,7 @@ rpm-ostree install -y tmux podman podman-compose curl wget git vim-minimal \
                virt-manager distrobox \
                flatpak htop w3m gdm \
                pop-icon-theme sshfs \
-               gnome-shell gnome-terminal \
+               gnome-flashback gnome-terminal \
 
 
 
