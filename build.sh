@@ -10,7 +10,7 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install -y tmux podman podman-compose curl wget git neovim leafpad \
                lxde-common NetworkManager virt-manager distrobox \
                flatpak obconf xarchiver gpicview htop xpdf xclip w3m lightdm \
-               lxinput lxrandr lxterminal lxsession-edit lxsession lxappearance \
+               lxinput lxrandr lxsession-edit lxsession lxappearance \
                pop-icon-theme sshfs gnome-screenshot pipewire alsa-utils \
                terminus* lxpolkit ansible alacritty pavucontrol
 
