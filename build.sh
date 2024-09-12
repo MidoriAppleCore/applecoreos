@@ -8,9 +8,9 @@ rpm-ostree install -y tmux podman podman-compose curl wget git \
                NetworkManager virt-manager distrobox \
                flatpak  \
                pop-icon-theme sshfs pipewire \
-               terminus* kitty pavucontrol oneko vulkan-tools \
+               terminus* konsole pavucontrol oneko vulkan-tools \
                swtpm swtpm-tools kubernetes kubernetes-kubeadm kubernetes-client \
-               plasma-desktop plasma-workspace-wayland plasma-nm
+               plasma-desktop plasma-workspace-wayland plasma-nm dolphin kscreen
 
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
