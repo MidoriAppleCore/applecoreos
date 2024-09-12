@@ -10,7 +10,7 @@ rpm-ostree install -y tmux podman podman-compose curl wget git \
                pop-icon-theme sshfs pipewire \
                terminus* konsole pavucontrol oneko vulkan-tools \
                swtpm swtpm-tools kubernetes kubernetes-kubeadm kubernetes-client \
-               plasma-desktop plasma-workspace-wayland plasma-nm dolphin kscreen
+               plasma-desktop plasma-workspace-wayland plasma-nm dolphin kscreen minikube
 
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
@@ -21,6 +21,9 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 
 rpm-ostree install -y code # or code-insiders
 
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+rpm-ostree install minikube-latest.x86_64.rpm
+rm minikube-latest.x86_64.rpm
 
 # Enable necessary services
 systemctl enable podman.socket
