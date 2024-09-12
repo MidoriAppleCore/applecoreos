@@ -20,7 +20,7 @@ env:
   VERSION: "40"
   VARIANT: "base"
   SOURCE_IMAGE: "base"
-  SOURCE_SUFFIX: "-asus-nvidia"
+  SOURCE_SUFFIX: "-nvidia"
   SOURCE_TAG: "latest"
 
 jobs:

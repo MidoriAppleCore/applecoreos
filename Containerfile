@@ -1,7 +1,7 @@
 
 ## 1. BUILD ARGS
 ARG SOURCE_IMAGE="base"
-ARG SOURCE_SUFFIX="-asus-nvidia"
+ARG SOURCE_SUFFIX="-nvidia"
 ARG SOURCE_TAG="latest"
 
 ## 2. SOURCE IMAGE

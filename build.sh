@@ -4,17 +4,22 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
-### Install packages
 rpm-ostree install -y tmux podman podman-compose curl wget git leafpad \
                lxde-common NetworkManager virt-manager distrobox \
                flatpak obconf xarchiver gpicview htop xpdf xclip w3m lightdm \
                lxinput lxrandr lxsession-edit lxsession lxappearance \
                pop-icon-theme sshfs gnome-screenshot pipewire alsa-utils \
                terminus* lxpolkit ansible kitty pavucontrol oneko vulkan-tools \
-               swtpm swtpm-tools tigervnc-server mathomatic
+               swtpm swtpm-tools mathomatic kubectl kubeadm kubelet kubernetes-cni
 
 #remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
 rpm-ostree override remove firefox firefox-langpacks
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+dnf check-update
+sudo dnf install code # or code-insiders
+
 
 # Enable necessary services
 systemctl enable podman.socket
