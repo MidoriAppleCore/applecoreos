@@ -9,7 +9,6 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## 3. MODIFICATIONS
 # Copy scripts and necessary files into the image
 COPY build.sh /tmp/build.sh
-COPY config.ign /boot/ignition/config.ign
 COPY wallpaper.jpg /tmp/wallpaper.jpg
 
 # Make build.sh executable and execute it
