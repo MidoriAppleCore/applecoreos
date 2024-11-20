@@ -21,7 +21,6 @@ bash \
 coreutils \
 curl \
 dhcp-client \
-dnf \
 e2fsprogs \
 filesystem \
 glibc \
@@ -81,7 +80,6 @@ virtualbox-guest-additions \
 adwaita-gtk2-theme \
 adwaita-icon-theme \
 clipit \
-dnfdragora-updater \
 firewall-config \
 galculator \
 gigolo \
