@@ -4,35 +4,69 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
-rpm-ostree install -y tmux podman podman-compose curl wget git \
+# Install necessary packages
+dnf install -y tmux podman podman-compose curl wget git \
                NetworkManager virt-manager distrobox \
-               flatpak  \
+               flatpak \
                pop-icon-theme sshfs pipewire \
-               terminus* konsole pavucontrol oneko vulkan-tools \
-               swtpm swtpm-tools kubernetes kubernetes-kubeadm kubernetes-client \
-               plasma-desktop plasma-workspace-wayland plasma-nm dolphin kscreen 
+               terminus* konsole pavucontrol oneko vulkan-tools ignition
 
+# Install LXDE desktop environment
+sudo dnf groupinstall -y "LXDE Desktop"
 
-#remove default firefox since it might force us to update the base system more often than we want to because of exploits etc
-rpm-ostree override remove firefox firefox-langpacks
+# Remove default Firefox (avoiding frequent updates due to exploits)
+dnf remove -y firefox firefox-langpacks
 
+# Add Microsoft repository and import GPG key for Visual Studio Code
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-rpm-ostree install -y code # or code-insiders
-
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
-rpm-ostree install minikube-latest.x86_64.rpm
-rm minikube-latest.x86_64.rpm
+# Install Visual Studio Code (or Insiders version if preferred)
+dnf install -y code
 
 # Enable necessary services
 systemctl enable podman.socket
 systemctl enable flatpak-system-helper
 
+# Set up Ignition configuration and service
+mkdir -p /boot/ignition
+cat << 'EOF' > /boot/ignition/config.ign
+{
+  "ignition": { "version": "3.3.0" },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/motd",
+        "contents": { "source": "data:,Welcome%20to%20your%20custom%20build!" },
+        "mode": 420
+      }
+    ]
+  }
+}
+EOF
+
+# Create and enable Ignition systemd service
+cat << 'EOF' > /etc/systemd/system/ignition-firstboot.service
+[Unit]
+Description=Ignition First Boot Configuration
+After=network-online.target
+ConditionFirstBoot=true
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ignition --config-file=/boot/ignition/config.ign
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable the Ignition service for first boot
+systemctl enable ignition-firstboot.service
+
 ### Cleanup
 
-# Remove unnecessary packages
-rpm-ostree cleanup -m
-
-# Remove temporary files and caches
+# Remove unnecessary packages and clean caches
+dnf clean all
 rm -rf /var/cache/dnf /var/lib/dnf /tmp/* /var/tmp/*
+
+echo "Setup completed successfully!"
