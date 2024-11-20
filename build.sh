@@ -258,8 +258,7 @@ systemctl enable podman.socket
 systemctl enable flatpak-system-helper
 
 # Set up Ignition configuration and service
-mkdir -p /boot/ignition
-cat << 'EOF' > /boot/ignition/config.ign
+cat << 'EOF' > /config.ign
 {
   "ignition": { "version": "3.3.0" },
   "storage": {
@@ -283,7 +282,7 @@ ConditionFirstBoot=true
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/ignition --config-file=/boot/ignition/config.ign
+ExecStart=/usr/bin/ignition --config-file=/config.ign
 
 [Install]
 WantedBy=multi-user.target
