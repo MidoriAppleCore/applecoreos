@@ -125,7 +125,6 @@ alsa-utils \
 gstreamer1-plugin-libav \
 gstreamer1-plugin-openh264 \
 gstreamer1-plugins-bad-free \
-gstreamer1-plugins-bad-freeworld \
 gstreamer1-plugins-good \
 gstreamer1-plugins-ugly \
 gstreamer1-plugins-ugly-free \
@@ -136,11 +135,6 @@ pipewire-pulseaudio \
 pipewire-utils \
 wireplumber \
 gstreamer-plugins-espeak \
-libavcodec-freeworld \
-libavcodec-freeworld \
-libavcodec-freeworld \
-libheif-freeworld \
-pipewire-codec-aptx \
 cups \
 cups-filters \
 ghostscript \
@@ -238,7 +232,7 @@ which \
 whois \
 words \
 zip \
-chrony\
+chrony  \
 glx-utils \
 mesa-dri-drivers \
 mesa-vulkan-drivers \
