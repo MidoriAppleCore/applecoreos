@@ -37,7 +37,6 @@ parted \
 policycoreutils \
 procps-ng \
 rootfiles \
-rpm \
 selinux-policy-targeted \
 setup \
 shadow-utils \
@@ -47,7 +46,6 @@ sudo \
 systemd \
 util-linux \
 vim-minimal \
-yum \
 NetworkManager \
 dracut-config-rescue \
 firewalld \
