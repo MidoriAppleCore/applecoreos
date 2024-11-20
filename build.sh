@@ -50,7 +50,6 @@ util-linux \
 vim-minimal \
 yum \
 NetworkManager \
-dnf-plugins-core \
 dracut-config-rescue \
 firewalld \
 fwupd \
@@ -237,7 +236,6 @@ xorg-x11-drv-libinput \
 xorg-x11-drv-nouveau \
 xorg-x11-drv-openchrome \
 xorg-x11-drv-qxl \
-xorg-x11-drv-vesa \
 xorg-x11-drv-vmware \
 xorg-x11-drv-wacom \
 xorg-x11-server-Xorg \
