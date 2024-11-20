@@ -39,8 +39,6 @@ policycoreutils \
 procps-ng \
 rootfiles \
 rpm \
-rpmfusion-free-release \
-rpmfusion-nonfree-release \
 selinux-policy-targeted \
 setup \
 shadow-utils \
@@ -62,8 +60,6 @@ zram-generator-defaults \
 dracut-config-generic \
 initial-setup \
 initscripts \
-rpmfusion-free-appstream-data \
-rpmfusion-nonfree-appstream-data \
 ppp \
 ModemManager \
 NetworkManager-adsl \
@@ -145,8 +141,6 @@ libavcodec-freeworld \
 libavcodec-freeworld \
 libheif-freeworld \
 pipewire-codec-aptx \
-qt5-qtwebengine-freeworld \
-vlc-plugins-freeworld \
 cups \
 cups-filters \
 ghostscript \
@@ -252,7 +246,6 @@ plymouth-system-theme \
 xorg-x11-drv-amdgpu \
 xorg-x11-drv-ati \
 xorg-x11-drv-evdev \
-xorg-x11-drv-fbdev \
 xorg-x11-drv-intel \
 xorg-x11-drv-libinput \
 xorg-x11-drv-nouveau \
@@ -263,11 +256,11 @@ xorg-x11-drv-vmware \
 xorg-x11-drv-wacom \
 xorg-x11-server-Xorg \
 xorg-x11-xauth \
-xorg-x11-xinit\
+xorg-x11-xinit \
 firefox \
 pidgin \
 sylpheed \
-transmission\
+transmission \
 abiword \
 gnumeric \
 osmo
