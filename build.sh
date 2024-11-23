@@ -6,10 +6,11 @@ RELEASE="$(rpm -E %fedora)"
 
 # Install necessary packages
 dnf install -y tmux podman podman-compose curl wget git \
-               NetworkManager virt-manager distrobox \
+               virt-manager\
+	       distrobox \
                flatpak \
-               pop-icon-theme sshfs pipewire \
-               terminus* konsole pavucontrol oneko vulkan-tools ignition
+               sshfs \
+               ignition \
 
 # Install LXDE desktop environment
 
