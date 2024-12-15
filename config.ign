@@ -1,0 +1,13 @@
+
+{
+  "ignition": { "version": "3.3.0" },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/motd",
+        "contents": { "source": "data:,Welcome%20to%20your%20custom%20build!" },
+        "mode": 420
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+
+[Unit]
+Description=Ignition First Boot Configuration
+After=network-online.target
+ConditionFirstBoot=true
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ignition --config-file=/etc/ignition/config.ign
+
+[Install]
+WantedBy=multi-user.target

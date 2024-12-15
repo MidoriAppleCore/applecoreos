@@ -10,6 +10,8 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 # Copy scripts and necessary files into the image
 COPY build.sh /tmp/build.sh
 COPY wallpaper.jpg /tmp/wallpaper.jpg
+COPY config.ign /etc/ignition/config.ign
+COPY ignition-firstboot.service /etc/systemd/system/ignition-firstboot.service
 
 # Make build.sh executable and execute it
 RUN chmod +x /tmp/build.sh && /tmp/build.sh
